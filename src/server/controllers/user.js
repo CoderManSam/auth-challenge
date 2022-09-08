@@ -40,11 +40,14 @@ const login = async (req, res) => {
         return res.status(401).json({ error: 'Invalid username or password.' });
     }
 
-    const payload = foundUser.username
+    const foundUsername = foundUser.username
+    const foundId = foundUser.id
+
+    const payload = {username: foundUsername, id: foundId}
 
     const token = jwt.sign(payload, process.env.JWT_SECRET);
 
-    res.json({ data: token });
+    res.json({ data: token, id: foundId});
 };
 
 module.exports = {

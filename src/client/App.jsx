@@ -33,13 +33,30 @@ function App() {
       body: JSON.stringify({username: username, password: password})
     })
 
-    const {data} = await res.json()
+    const {data, id} = await res.json()
 
     const token = data
 
     // console.log("data", data)
 
     localStorage.setItem('token', token)
+
+    const resMovies = await fetch(`http://localhost:4000/movie?userId=${id}`, {
+      method: 'GET',
+      headers: {
+          'Content-Type': 'application/json'
+      }
+    })
+
+    const movieData = await resMovies.json()
+
+    const usersMovies = movieData.data
+
+    console.log("usersMovies", usersMovies)
+
+    // const moviesList = [...movies, createdMovie]
+
+    setMovies(usersMovies)
   };
   
   const handleCreateMovie = async ({ title, description, runtimeMins }) => {
