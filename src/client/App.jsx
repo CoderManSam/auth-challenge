@@ -35,9 +35,7 @@ function App() {
 
     const {data, id} = await res.json()
 
-    const token = data
-
-    // console.log("data", data)
+    const [bearer, token] = data.split(' ')
 
     localStorage.setItem('token', token)
 

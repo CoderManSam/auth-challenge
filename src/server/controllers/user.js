@@ -45,7 +45,9 @@ const login = async (req, res) => {
 
     const payload = {username: foundUsername, id: foundId}
 
-    const token = jwt.sign(payload, process.env.JWT_SECRET);
+    const token = 'Bearer ' + jwt.sign(payload, process.env.JWT_SECRET);
+
+    // console.log("token", token)
 
     res.json({ data: token, id: foundId});
 };
